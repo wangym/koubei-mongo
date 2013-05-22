@@ -32,14 +32,13 @@ public class DAOTest {
 	/**
 	 * @throws java.lang.Exception
 	 */
-	@SuppressWarnings("deprecation")
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("test.application.xml");
 		dao = (DAO) context.getBean("dao");
 		if (null != dao) {
-			dao.removeAll();
+			// dao.removeAll();
 		}
 	}
 
