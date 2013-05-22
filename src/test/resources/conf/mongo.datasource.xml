@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+
+	<bean id="dsn" class="com.koubei.mongo.client.MongoDSN">
+		<!-- servers(e.g:127.0.0.1:27017) -->
+		<property name="servers">
+			<list>
+				<value>127.0.0.1:27017</value>
+			</list>
+		</property>
+		<!-- default "false", this controls whether or not on a connect, the system retries automatically -->
+		<property name="autoConnectRetry" value="false" />
+		<!-- default "10", number of connections allowed per host will block if run out -->
+		<property name="connectionsPerHost" value="10" />
+		<!-- default "0", connect timeout in milliseconds -->
+		<property name="connectTimeout" value="0" />
+		<!-- default "120000", max wait time of a blocking thread for a connection -->
+		<property name="maxWaitTime" value="120000" />
+		<!-- default "0", socket timeout -->
+		<property name="socketTimeout" value="0" />
+		<!-- default "5", multiplier for connectionsPerHost for # of threads that can block if connectionsPerHost is 10, and threadsAllowedToBlockForConnectionMultiplier is 5, then 50 threads can block more than that and an exception will be throw -->
+		<property name="threadsAllowedToBlockForConnectionMultiplier" value="5" />
+	</bean>
+
+</beans>

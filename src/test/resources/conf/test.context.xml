@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+
+	<bean id="dao" class="com.koubei.mongo.client.DAO" autowire="byName">
+		<property name="dsn" ref="dsn" />
+		<property name="database" value="koubei" />
+		<property name="collection" value="mongo" />
+		<property name="pojo" ref="pojo" />
+	</bean>
+
+	<bean id="pojo" class="com.koubei.mongo.client.POJO" />
+
+</beans>
