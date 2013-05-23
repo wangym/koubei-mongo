@@ -2,10 +2,10 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 <beans>
 
-	<bean id="dao" class="com.koubei.mongo.client.DAO" autowire="byName">
+	<bean id="userDAO" class="com.koubei.mongo.client.UserDAO" autowire="byName">
 		<property name="dsn" ref="dsn" />
 		<property name="database" value="koubei" />
-		<property name="collection" value="mongo" />
+		<property name="collection" value="user" />
 		<property name="pojo" ref="pojo" />
 	</bean>
 

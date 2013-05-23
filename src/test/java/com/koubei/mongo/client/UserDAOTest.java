@@ -22,12 +22,12 @@ import com.koubei.mongo.client.domain.valueobject.MongoSortVO;
  * @author xuanyin
  * 
  */
-public class DAOTest {
+public class UserDAOTest {
 
 	/**
 	 * 
 	 */
-	private static DAO dao;
+	private static UserDAO userDAO;
 
 	/**
 	 * @throws java.lang.Exception
@@ -36,8 +36,8 @@ public class DAOTest {
 	public static void setUpBeforeClass() throws Exception {
 
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("test.application.xml");
-		dao = (DAO) context.getBean("dao");
-		if (null != dao) {
+		userDAO = (UserDAO) context.getBean("userDAO");
+		if (null != userDAO) {
 			// dao.removeAll();
 		}
 	}
@@ -87,7 +87,7 @@ public class DAOTest {
 		pojo.set_id(_id);
 		pojo.setAge(27);
 		pojo.setNick("insert");
-		boolean result = dao.insert(pojo);
+		boolean result = userDAO.insert(pojo);
 
 		assertEquals(true, result);
 	}
@@ -111,7 +111,7 @@ public class DAOTest {
 			list.add(pojo);
 		}
 
-		boolean result = dao.insertList(list);
+		boolean result = userDAO.insertList(list);
 
 		assertEquals(true, result);
 	}
@@ -127,7 +127,7 @@ public class DAOTest {
 		pojo.set_id(_id);
 		pojo.setAge(27);
 		pojo.setNick("save");
-		boolean result = dao.save(pojo);
+		boolean result = userDAO.save(pojo);
 
 		assertEquals(true, result);
 	}
@@ -147,7 +147,7 @@ public class DAOTest {
 		pojo.set_id(_id);
 		pojo.setAge(age);
 		pojo.setNick(nick);
-		boolean result = dao.insert(pojo);
+		boolean result = userDAO.insert(pojo);
 		if (result) {
 
 			Map<String, Object> condition = new HashMap<String, Object>();
@@ -158,7 +158,7 @@ public class DAOTest {
 			Map<String, Object> target = new HashMap<String, Object>();
 			target.put("nick", newNick);
 
-			result = dao.updateMapByCondition(condition, target);
+			result = userDAO.updateMapByCondition(condition, target);
 		}
 
 		assertEquals(true, result);
@@ -179,13 +179,13 @@ public class DAOTest {
 		pojo.set_id(_id);
 		pojo.setAge(age);
 		pojo.setNick(nick);
-		boolean result = dao.insert(pojo);
+		boolean result = userDAO.insert(pojo);
 		if (result) {
 
 			Map<String, Object> target = new HashMap<String, Object>();
 			target.put("nick", newNick);
 
-			result = dao.updateMapByKV("_id", _id, target);
+			result = userDAO.updateMapByKV("_id", _id, target);
 		}
 
 		assertEquals(true, result);
@@ -206,13 +206,13 @@ public class DAOTest {
 		pojo.set_id(_id);
 		pojo.setAge(age);
 		pojo.setNick(nick);
-		boolean result = dao.insert(pojo);
+		boolean result = userDAO.insert(pojo);
 		if (result) {
 
 			Map<String, Object> target = new HashMap<String, Object>();
 			target.put("nick", newNick);
 
-			result = dao.updateMapByPrimaryId(_id, target);
+			result = userDAO.updateMapByPrimaryId(_id, target);
 		}
 
 		assertEquals(true, result);
@@ -233,7 +233,7 @@ public class DAOTest {
 		pojo.set_id(_id);
 		pojo.setAge(age);
 		pojo.setNick(nick);
-		boolean result = dao.insert(pojo);
+		boolean result = userDAO.insert(pojo);
 		if (result) {
 
 			Map<String, Object> condition = new HashMap<String, Object>();
@@ -246,7 +246,7 @@ public class DAOTest {
 			pojo.setAge(age);
 			pojo.setNick(newNick);
 
-			result = dao.updateObjectByCondition(condition, pojo);
+			result = userDAO.updateObjectByCondition(condition, pojo);
 		}
 
 		assertEquals(true, result);
@@ -267,7 +267,7 @@ public class DAOTest {
 		pojo.set_id(_id);
 		pojo.setAge(age);
 		pojo.setNick(nick);
-		boolean result = dao.insert(pojo);
+		boolean result = userDAO.insert(pojo);
 		if (result) {
 
 			pojo = new POJO();
@@ -275,7 +275,7 @@ public class DAOTest {
 			pojo.setAge(age);
 			pojo.setNick(newNick);
 
-			result = dao.updateObjectByKV("_id", _id, pojo);
+			result = userDAO.updateObjectByKV("_id", _id, pojo);
 		}
 
 		assertEquals(true, result);
@@ -296,7 +296,7 @@ public class DAOTest {
 		pojo.set_id(_id);
 		pojo.setAge(age);
 		pojo.setNick(nick);
-		boolean result = dao.insert(pojo);
+		boolean result = userDAO.insert(pojo);
 		if (result) {
 
 			pojo = new POJO();
@@ -304,7 +304,7 @@ public class DAOTest {
 			pojo.setAge(age);
 			pojo.setNick(newNick);
 
-			result = dao.updateObjectByPrimaryId(_id, pojo);
+			result = userDAO.updateObjectByPrimaryId(_id, pojo);
 		}
 
 		assertEquals(true, result);
@@ -324,15 +324,15 @@ public class DAOTest {
 		pojo.set_id(_id);
 		pojo.setAge(age);
 		pojo.setNick(nick);
-		boolean result = dao.insert(pojo);
+		boolean result = userDAO.insert(pojo);
 		if (result) {
 
 			// 执行累加,累加27,应为54
-			result = dao.incrByPrimaryId(_id, "age", 27);
+			result = userDAO.incrByPrimaryId(_id, "age", 27);
 			if (result) {
 
 				// 执行查询,若为54,累加成功
-				POJO findPojo = dao.findOneByPrimaryId(_id);
+				POJO findPojo = userDAO.findOneByPrimaryId(_id);
 				if (null != findPojo) {
 
 					result = (54 == findPojo.getAge() ? true : false);
@@ -357,15 +357,15 @@ public class DAOTest {
 		pojo.set_id(_id);
 		pojo.setAge(age);
 		pojo.setNick(nick);
-		boolean result = dao.insert(pojo);
+		boolean result = userDAO.insert(pojo);
 		if (result) {
 
 			// 执行累加,累加27,应为0
-			result = dao.decrByPrimaryId(_id, "age", -27);
+			result = userDAO.decrByPrimaryId(_id, "age", -27);
 			if (result) {
 
 				// 执行查询,若为0,累减成功
-				POJO findPojo = dao.findOneByPrimaryId(_id);
+				POJO findPojo = userDAO.findOneByPrimaryId(_id);
 				if (null != findPojo) {
 
 					result = (0 == findPojo.getAge() ? true : false);
@@ -390,7 +390,7 @@ public class DAOTest {
 		pojo.set_id(_id);
 		pojo.setAge(age);
 		pojo.setNick(nick);
-		boolean result = dao.insert(pojo);
+		boolean result = userDAO.insert(pojo);
 		if (result) {
 
 			Map<String, Object> condition = new HashMap<String, Object>();
@@ -398,7 +398,7 @@ public class DAOTest {
 			condition.put("age", age);
 			condition.put("nick", nick);
 
-			result = dao.removeByCondition(condition);
+			result = userDAO.removeByCondition(condition);
 		}
 
 		assertEquals(true, result);
@@ -418,10 +418,10 @@ public class DAOTest {
 		pojo.set_id(_id);
 		pojo.setAge(age);
 		pojo.setNick(nick);
-		boolean result = dao.insert(pojo);
+		boolean result = userDAO.insert(pojo);
 		if (result) {
 
-			result = dao.removeByKV("_id", _id);
+			result = userDAO.removeByKV("_id", _id);
 		}
 
 		assertEquals(true, result);
@@ -441,10 +441,10 @@ public class DAOTest {
 		pojo.set_id(_id);
 		pojo.setAge(age);
 		pojo.setNick(nick);
-		boolean result = dao.insert(pojo);
+		boolean result = userDAO.insert(pojo);
 		if (result) {
 
-			result = dao.removeByPrimaryId(_id);
+			result = userDAO.removeByPrimaryId(_id);
 		}
 
 		assertEquals(true, result);
@@ -463,14 +463,14 @@ public class DAOTest {
 		pojo.set_id(_id);
 		pojo.setAge(age);
 		pojo.setNick(nick);
-		boolean result = dao.save(pojo);
+		boolean result = userDAO.save(pojo);
 		if (result) {
 
 			Map<String, Object> condition = new HashMap<String, Object>();
 			condition.put("_id", _id);
 			condition.put("age", age);
 			condition.put("nick", nick);
-			POJO ret = dao.findOneByCondition(condition);
+			POJO ret = userDAO.findOneByCondition(condition);
 
 			if (null != ret && _id.equalsIgnoreCase(ret.get_id())) {
 				result = true;
@@ -494,10 +494,10 @@ public class DAOTest {
 		pojo.set_id(_id);
 		pojo.setAge(age);
 		pojo.setNick(nick);
-		boolean result = dao.save(pojo);
+		boolean result = userDAO.save(pojo);
 		if (result) {
 
-			POJO ret = dao.findOneByKV("nick", nick);
+			POJO ret = userDAO.findOneByKV("nick", nick);
 
 			if (null != ret && _id.equalsIgnoreCase(ret.get_id())) {
 				result = true;
@@ -521,10 +521,10 @@ public class DAOTest {
 		pojo.set_id(_id);
 		pojo.setAge(age);
 		pojo.setNick(nick);
-		boolean result = dao.save(pojo);
+		boolean result = userDAO.save(pojo);
 		if (result) {
 
-			POJO ret = dao.findOneByPrimaryId(_id);
+			POJO ret = userDAO.findOneByPrimaryId(_id);
 
 			if (null != ret && _id.equalsIgnoreCase(ret.get_id())) {
 				result = true;
@@ -548,7 +548,7 @@ public class DAOTest {
 		sort.setPrimaryKey("age");
 		sort.setPrimaryOrderBy(MongoOrderByEnum.DESC);
 
-		List<POJO> list = dao.findAllByCondition(condition, sort);
+		List<POJO> list = userDAO.findAllByCondition(condition, sort);
 		if (null != list && 0 < list.size()) {
 			for (POJO pojo : list) {
 				System.out.println(pojo.get_id() + "-" + pojo.getAge());
@@ -571,7 +571,7 @@ public class DAOTest {
 		sort.setPrimaryKey("age");
 		sort.setPrimaryOrderBy(MongoOrderByEnum.DESC);
 
-		List<POJO> list = dao.findByCondition(condition, sort, 1, 10);
+		List<POJO> list = userDAO.findByCondition(condition, sort, 1, 10);
 		if (null != list && 0 < list.size()) {
 			for (POJO pojo : list) {
 				System.out.println(pojo.get_id() + "-" + pojo.getAge());
@@ -590,7 +590,7 @@ public class DAOTest {
 		Map<String, Object> condition = new HashMap<String, Object>();
 		condition.put("nick", "insertList");
 
-		long count = dao.countByCondition(condition);
+		long count = userDAO.countByCondition(condition);
 		System.out.println(count);
 
 		assertEquals(true, true);

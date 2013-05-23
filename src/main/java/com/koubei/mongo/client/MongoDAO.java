@@ -46,7 +46,7 @@ public class MongoDAO<T> implements InitializingBean, IMongoDAO<T> {
 	private static final Log LOG = LogFactory.getLog(MongoDAO.class);
 
 	// ====================
-	// Public and Protected
+	// public and protected
 	// ====================
 
 	/**
@@ -66,10 +66,12 @@ public class MongoDAO<T> implements InitializingBean, IMongoDAO<T> {
 		if (null == this.database || null == this.collection || null == this.pojo) {
 			throw new MongoException("koubei-mongo: property 'database', 'collection', 'pojo' required!");
 		}
-		this.mongo = MongoConnector.getMongo(this.dsn, this.database);
+
+		this.mongo = MongoConnector.getMongo(this.dsn);
 		if (null == this.mongo) {
 			throw new MongoException("koubei-mongo: connection failed!");
 		}
+
 		this.db = this.mongo.getDB(this.database);
 		this.coll = this.db.getCollection(this.collection);
 		if (null == this.db || null == this.collection) {
@@ -504,7 +506,7 @@ public class MongoDAO<T> implements InitializingBean, IMongoDAO<T> {
 	}
 
 	// ====================
-	// Private methods
+	// private methods
 	// ====================
 
 	/**
@@ -564,7 +566,7 @@ public class MongoDAO<T> implements InitializingBean, IMongoDAO<T> {
 	}
 
 	// ====================
-	// Getters and Setters
+	// getters and setters
 	// ====================
 
 	/**

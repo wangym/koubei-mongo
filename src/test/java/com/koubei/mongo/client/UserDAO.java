@@ -9,6 +9,6 @@ import com.koubei.mongo.client.MongoDAO;
  * @author xuanyin
  * 
  */
-public class DAO extends MongoDAO<POJO> {
+public class UserDAO extends MongoDAO<POJO> {
 
 }

@@ -24,7 +24,7 @@ public class AdvancedQueryTest {
 	/**
 	 * 
 	 */
-	private static DAO dao;
+	private static UserDAO dao;
 
 	/**
 	 * @throws java.lang.Exception
@@ -33,7 +33,7 @@ public class AdvancedQueryTest {
 	public static void setUpBeforeClass() throws Exception {
 
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("test.application.xml");
-		dao = (DAO) context.getBean("dao");
+		dao = (UserDAO) context.getBean("dao");
 		if (null != dao) {
 			// dao.removeAll();
 		}
