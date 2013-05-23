@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.koubei.mongo.client;
+package com.koubei.mongo.client.test;
 
 import org.bson.types.ObjectId;
 

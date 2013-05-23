@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.koubei.mongo.client;
+package com.koubei.mongo.client.test;
 
 import com.koubei.mongo.client.MongoDAO;
 
