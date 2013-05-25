@@ -8,9 +8,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.junit.After;
 import org.junit.AfterClass;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -29,38 +27,20 @@ public class UserDAOTest {
 	 */
 	private static UserDAO userDAO;
 
-	/**
-	 * @throws java.lang.Exception
-	 */
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("test.application.xml");
 		userDAO = (UserDAO) context.getBean("userDAO");
 		if (null != userDAO) {
-			// dao.removeAll();
+			// userDAO.removeAll();
 		}
 	}
 
-	/**
-	 * @throws java.lang.Exception
-	 */
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
-	}
 
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@Before
-	public void setUp() throws Exception {
-	}
-
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@After
-	public void tearDown() throws Exception {
+		userDAO.close();
 	}
 
 	/**

@@ -245,4 +245,10 @@ public interface IMongoDAO<T> {
 	 * @return 满条足件的记录数
 	 */
 	public long advancedCountByCondition(Map<String, MongoAdvancedQuery> condition);
+
+    /**
+     * closes the underlying connector, which in turn closes all open connections.
+     * Once called, this Mongo instance can no longer be used.
+     */
+	public void close();
 }

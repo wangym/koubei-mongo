@@ -60,21 +60,21 @@ public class MongoDAO<T> implements InitializingBean, IMongoDAO<T> {
 	 */
 	protected void initializingBean() throws UnknownHostException {
 
-		if (null == this.dsn) {
+		if (null == dsn) {
 			throw new MongoException("koubei-mongo: check the datasource file!");
 		}
-		if (null == this.database || null == this.collection || null == this.pojo) {
+		if (null == database || null == collection || null == pojo) {
 			throw new MongoException("koubei-mongo: property 'database', 'collection', 'pojo' required!");
 		}
 
-		this.mongo = MongoConnector.getMongo(this.dsn);
-		if (null == this.mongo) {
+		mongo = MongoConnector.getMongo(dsn);
+		if (null == mongo) {
 			throw new MongoException("koubei-mongo: connection failed!");
 		}
 
-		this.db = this.mongo.getDB(this.database);
-		this.coll = this.db.getCollection(this.collection);
-		if (null == this.db || null == this.collection) {
+		db = mongo.getDB(database);
+		coll = db.getCollection(collection);
+		if (null == db || null == collection) {
 			throw new MongoException("koubei-mongo: property 'db', 'coll' initializing failed!");
 		}
 	}
@@ -98,8 +98,8 @@ public class MongoDAO<T> implements InitializingBean, IMongoDAO<T> {
 			// 调试信息
 			LOG.debug("insert - " + dbObject.toString());
 			// 执行写入
-			this.coll.insert(dbObject);
-			result = this.getResult();
+			coll.insert(dbObject);
+			result = getResult();
 		} catch (Exception e) {
 			LOG.debug("insert", e);
 		}
@@ -125,8 +125,8 @@ public class MongoDAO<T> implements InitializingBean, IMongoDAO<T> {
 			// 调试信息
 			LOG.debug("insertList - " + dbObjects.toString());
 			// 执行写入
-			this.coll.insert(dbObjects);
-			result = this.getResult();
+			coll.insert(dbObjects);
+			result = getResult();
 		} catch (Exception e) {
 			LOG.debug("insertList", e);
 		}
@@ -146,8 +146,8 @@ public class MongoDAO<T> implements InitializingBean, IMongoDAO<T> {
 			// 调试信息
 			LOG.debug("save - " + dbObject.toString());
 			// 执行保存
-			this.coll.save(dbObject);
-			result = this.getResult();
+			coll.save(dbObject);
+			result = getResult();
 		} catch (Exception e) {
 			LOG.debug("save", e);
 		}
@@ -172,8 +172,8 @@ public class MongoDAO<T> implements InitializingBean, IMongoDAO<T> {
 			// 调试信息
 			LOG.debug("updateMapByCondition - query:" + query.toString() + " | objNew:" + objNew.toString());
 			// 执行修改
-			this.coll.update(query, objNew, false, true);
-			result = this.getResult();
+			coll.update(query, objNew, false, true);
+			result = getResult();
 		} catch (Exception e) {
 			LOG.debug("updateMapByCondition", e);
 		}
@@ -213,8 +213,8 @@ public class MongoDAO<T> implements InitializingBean, IMongoDAO<T> {
 			// 调试信息
 			LOG.debug("updateObjectByCondition - query:" + query.toString() + " | objNew:" + objNew.toString());
 			// 执行修改
-			this.coll.update(query, objNew, false, true);
-			result = this.getResult();
+			coll.update(query, objNew, false, true);
+			result = getResult();
 		} catch (Exception e) {
 			LOG.debug("updateObjectByCondition", e);
 		}
@@ -273,8 +273,8 @@ public class MongoDAO<T> implements InitializingBean, IMongoDAO<T> {
 			// 调试信息
 			LOG.debug("removeByCondition - " + query.toString());
 			// 执行删除
-			this.coll.remove(query);
-			result = this.getResult();
+			coll.remove(query);
+			result = getResult();
 		} catch (Exception e) {
 			LOG.debug("removeByCondition", e);
 		}
@@ -306,8 +306,8 @@ public class MongoDAO<T> implements InitializingBean, IMongoDAO<T> {
 
 		try {
 			// 执行删除
-			this.coll.remove(new BasicDBObject());
-			result = this.getResult();
+			coll.remove(new BasicDBObject());
+			result = getResult();
 		} catch (Exception e) {
 			LOG.debug("removeAll", e);
 		}
@@ -328,10 +328,10 @@ public class MongoDAO<T> implements InitializingBean, IMongoDAO<T> {
 			// 调试信息
 			LOG.debug("findOneByCondition - " + query.toString());
 			// 执行查询
-			DBObject dbObject = this.coll.findOne(query);
+			DBObject dbObject = coll.findOne(query);
 			if (null != dbObject) {
 				// 转为原型
-				object = (T) MongoUtil.getObjectByDBObject(dbObject, this.pojo);
+				object = (T) MongoUtil.getObjectByDBObject(dbObject, pojo);
 			}
 		} catch (Exception e) {
 			LOG.debug("findOneByCondition", e);
@@ -371,10 +371,10 @@ public class MongoDAO<T> implements InitializingBean, IMongoDAO<T> {
 			// 调试信息
 			LOG.debug("findAllByCondition - query:" + query.toString() + " | order:" + order);
 			// 执行查询
-			DBCursor cursor = this.coll.find(query).sort(order);
+			DBCursor cursor = coll.find(query).sort(order);
 			if (null != cursor && 0 < cursor.count()) {
 				for (DBObject dbObject : cursor) {
-					T object = (T) MongoUtil.getObjectByDBObject(dbObject, this.pojo);
+					T object = (T) MongoUtil.getObjectByDBObject(dbObject, pojo);
 					if (null != object) {
 						resultList.add(object);
 					}
@@ -406,10 +406,10 @@ public class MongoDAO<T> implements InitializingBean, IMongoDAO<T> {
 			// 调试信息
 			LOG.debug("findByCondition - query:" + query.toString() + " | order:" + order);
 			// 执行查询
-			DBCursor cursor = this.coll.find(query).skip(skip).limit(size).sort(order);
+			DBCursor cursor = coll.find(query).skip(skip).limit(size).sort(order);
 			if (null != cursor && 0 < cursor.count()) {
 				for (DBObject dbObject : cursor) {
-					T object = (T) MongoUtil.getObjectByDBObject(dbObject, this.pojo);
+					T object = (T) MongoUtil.getObjectByDBObject(dbObject, pojo);
 					if (null != object) {
 						resultList.add(object);
 					}
@@ -434,7 +434,7 @@ public class MongoDAO<T> implements InitializingBean, IMongoDAO<T> {
 			// 调试信息
 			LOG.debug("countByCondition - " + query.toString());
 			// 执行统计
-			count = this.coll.count(query);
+			count = coll.count(query);
 		} catch (Exception e) {
 			LOG.debug("countByCondition", e);
 		}
@@ -465,10 +465,10 @@ public class MongoDAO<T> implements InitializingBean, IMongoDAO<T> {
 			// 调试信息
 			LOG.debug("advancedFindByCondition - query:" + query.toString() + " | order:" + order);
 			// 执行查询
-			DBCursor cursor = this.coll.find(query).skip(skip).limit(size).sort(order);
+			DBCursor cursor = coll.find(query).skip(skip).limit(size).sort(order);
 			if (null != cursor && 0 < cursor.count()) {
 				for (DBObject dbObject : cursor) {
-					T object = (T) MongoUtil.getObjectByDBObject(dbObject, this.pojo);
+					T object = (T) MongoUtil.getObjectByDBObject(dbObject, pojo);
 					if (null != object) {
 						resultList.add(object);
 					}
@@ -497,12 +497,18 @@ public class MongoDAO<T> implements InitializingBean, IMongoDAO<T> {
 			// 调试信息
 			LOG.debug("advancedCountByCondition - " + query.toString());
 			// 执行统计
-			count = this.coll.count(query);
+			count = coll.count(query);
 		} catch (Exception e) {
 			LOG.debug("advancedCountByCondition", e);
 		}
 
 		return count;
+	}
+
+	@Override
+	public void close() {
+
+		mongo.close();
 	}
 
 	// ====================
@@ -519,7 +525,7 @@ public class MongoDAO<T> implements InitializingBean, IMongoDAO<T> {
 		// 返回结果
 		boolean result = false;
 
-		DBObject msg = this.db.getLastError();
+		DBObject msg = db.getLastError();
 		if (null != msg) {
 			String err = (String) msg.get("err");
 			if (null == err || 0 == err.length()) {
@@ -556,8 +562,8 @@ public class MongoDAO<T> implements InitializingBean, IMongoDAO<T> {
 			// 调试信息
 			LOG.debug("incOperateByKV - query:" + query.toString() + " | objNew:" + objNew.toString());
 			// 执行修改
-			this.coll.update(query, objNew, false, true);
-			result = this.getResult();
+			coll.update(query, objNew, false, true);
+			result = getResult();
 		} catch (Exception e) {
 			LOG.debug("incOperateByKV", e);
 		}
