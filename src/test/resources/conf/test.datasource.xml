@@ -2,7 +2,7 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 <beans>
 
-	<bean id="dsn" class="com.koubei.mongo.client.domain.valueobject.MongoDsnVO">
+	<bean id="dsn" class="me.yumin.mongo.client.domain.valueobject.MongoDsnVO">
 		<!-- servers(e.g:127.0.0.1:27017) -->
 		<property name="servers">
 			<list>

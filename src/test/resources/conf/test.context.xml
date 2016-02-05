@@ -2,13 +2,13 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 <beans>
 
-	<bean id="userDAO" class="com.koubei.mongo.client.test.UserDAO" autowire="byName">
+	<bean id="userDAO" class="me.yumin.mongo.client.UserDAO" autowire="byName">
 		<property name="dsn" ref="dsn" />
 		<property name="database" value="koubei" />
 		<property name="collection" value="user" />
 		<property name="pojo" ref="pojo" />
 	</bean>
 
-	<bean id="pojo" class="com.koubei.mongo.client.test.POJO" />
+	<bean id="pojo" class="me.yumin.mongo.client.POJO" />
 
 </beans>
